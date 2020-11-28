@@ -9,12 +9,14 @@ let numeros = document.querySelector('.d-1-3');
 //Variaveis de ambiente
 let etapaAtual = 0;
 let numero = '';
+let votoBranco = false;
 
 //Funções
 function comecarEtapa() {
     let etapa = etapas[etapaAtual];
     let numeroHtml = '';
     numero = '';
+    let votoBranco = false;
 
     for(let i = 0; i < etapa.numeros; i++) {
         if(i === 0){
@@ -77,15 +79,29 @@ function clicou(n){
 }
 
 function branco() {
-    alert("Clicou em BRANCO");
+    if(numero == '') {
+        votoBranco = true;
+        seuVotoPara.style.display = 'block';
+        aviso.style.display = 'block';
+        numeros.innerHTML = '';
+        descricao.innerHTML = '<div class="aviso--grande pisca">VOTO EM BRANCO</div>';
+    } else {
+        alert("Para votar em BRANCO, não digite nenhum número!")
+    }
 }
 
 function corrige() {
-    
+    comecarEtapa();
 }
 
 function confirma() {
-    alert("Clicou em CONFIRMA");
+    let etapa = etapas[etapaAtual];
+
+    if(votoBranco === true){
+        console.log("Confirmando como BRANCO");
+    } else if(numero.length === etapa.numeros) {
+        console.log("Confirmando como " + numero);
+    }
 }
 
 comecarEtapa();
